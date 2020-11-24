@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <style>
@@ -38,8 +38,12 @@
   </head>
   <body>
     <div id='container'>
-      <div id='title'>로그인</div>
+      <div id='title'>몇가지만 <br>입력해주세요.</div>
       <div id='content'>
+        <div id='info'>
+          <div style='width: 70px'>이름: </div>
+          <input id="userName" class='input'>
+        </div>
         <div id='info'>
           <div style='width: 70px'>이메일: </div>
           <input id="userEmail" class='input'>
@@ -50,35 +54,25 @@
         </div>
       </div>
       <div style='display: flex; justify-content: center;'>
-        <button ype="button" id="loginBtn">확인</button>
+        <button onClick='onClick()'>확인</button>
       </div>
     </div>
 
-
     <!-- JQuery library file. requared all pages -->
     <script src="js/jquery-3.2.1.min.js"></script>
-
-    <!-- Template global script file. requared all pages -->
-    <script src="js/global.script.js"></script>
+   
     <script>
-    $("#loginBtn").click(function(){
-    var userEmail = $("#userEmail").val();
-    var userPassword = $("#userPassword").val();
-      $.ajax({
-              url: "/login",
-              type: "POST",
-              data: {
-                userEmail: userEmail,
-                userPassword: userPassword,
-              },
-              success: function (data) {
-                console.log('우리의 토큰', data);
-                sessionStorage.setItem('ourtoken', data);
-                window.location.href = "/main";
-                }
-            });
-          })
+      const onClick = () => {
+        var userName = $("#userName").val();
+      var userEmail = $("#userEmail").val();
+      var userPassword = $("#userPassword").val();
+        localStorage.setItem('userName', userName);
+        localStorage.setItem('userEmail', userEmail);
+        localStorage.setItem('userPassword', userPassword);
+        window.location.href="/signup2";
+      }
     </script>
 
+    
   </body>
 </html>

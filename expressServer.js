@@ -25,16 +25,16 @@ connection.connect();
 
 
 // ------------------ get Method -------------------------
-app.get('/signup',function(req,res){
-    res.render('signup');
-})
-
-app.get('/login', function(req, res){
+app.get('/login',function(req,res){
     res.render('login');
 })
 
-app.get('/login2', function(req, res){
-    res.render('login2');
+app.get('/signup', function(req, res){
+    res.render('signup');
+})
+
+app.get('/signup2', function(req, res){
+    res.render('signup2');
 })
 
 
@@ -66,24 +66,25 @@ app.post('/signup', function(req, res){
 app.post('/login', function(req, res){
     var userEmail = req.body.userEmail;
     var userPassword = req.body.userPassword;
-    connection.query([userEmail], function(err, result){
-        if(err){
-            console.error(err);
+    var searchEmailSql = "SELECT * FROM user WHERE email = ?";
+    connection.query(searchEmailSql,[userEmail, userPassword], function (error, results, fields) {
+        if(error){
+            console.error(error);
             res.json(0);
-            throw err;
+            throw error;
         }
         else {
-            if(result.length == 0){
+            if(results.length == 0){
                 res.json(3)
             }
             else {
-                var Password = result[0].password;
+                var Password = results[0].password;
                 if(Password == userPassword){
-                    var tokenKey = ""
+                    var tokenKey = "f@i#n%tne#ckfhlafkd0102test!@#%"
                     jwt.sign(
                       {
-                          userId : result[0].id,
-                          userEmail : result[0].email
+                          userId : results[0].id,
+                          userEmail : results[0].email
                       },
                       tokenKey,
                       {
@@ -150,24 +151,29 @@ module.exports = authMiddleware;
 
 //----------------------- 서비스 작동 ----------------------------------//
 
-app.get('authResult', function(req,res){
-    var authCode = req.query.code
-    console.log(authCode)
-    var option ={
-        method : "POST",
-        url : "https://testapi.openbanking.or.kr/oauth/2.0/token",
-        headers : {
-            'Content-Type' : 'applcation/x-222-form-urlencoded'
-        },
-        form : {
-            code: authCode,
-            client_id: clientId,
-            client_secret: clientSecret,
-            redirect_url : 'http://localhost:3000/authResult',
-
-        }
+app.get('/authResult', function(req, res){
+    var authCode = req.query.code;
+    console.log("인증코드 : ", authCode)
+    var option = {
+      method : "POST",
+      url : "https://testapi.openbanking.or.kr/oauth/2.0/token",
+      headers : {
+        "Content-Type" : "application/x-www-form-urlencoded; charset=UTF-8"
+      },
+      form : {
+        code : authCode,
+        client_id : clientId,
+        client_secret : clientSecret,
+        redirect_uri : "http://localhost:3000/authResult",
+        grant_type : "authorization_code"
+      }
     }
-})
+    request(option, function (error, response, body) {
+      var accessRequestResult = JSON.parse(body);
+      console.log(accessRequestResult);
+      res.render("resultChild", { data: accessRequestResult });
+    });
+  })
 
 
 app.listen(3000, function(){

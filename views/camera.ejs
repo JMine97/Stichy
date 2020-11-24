@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #container {
+        display: flex;
+        justify-content: center;
+        border: 1px solid black;
+        width: 300px;
+        height: 500px;
+        padding: 5px;
+      }
+      #cameraContainer {
+        display: flex;
+        justify-content: center;
+        width: 200px; 
+        height: 200px;
+      }
+      #videoElement {
+        display: flex;
+        width: 250px;
+        height: 250px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='container'>
+      <div id='cameraContainer'>
+        <video id='videoElement' autoplay='true'></video>
+      </div>
+    </div>
+    <!-- <script>
+      var video = document.querySelector("#videoElement");
+
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(function (stream) {
+            video.srcObject = stream;
+          })
+          .catch(function (err0r) {
+            console.log("Something went wrong!");
+          });
+      }
+
+    </script> -->
+     <script type="text/javascript" src="js/instascan.min.js"></script>
+     <script>
+         let scanner = new Instascan.Scanner({
+             video: document.getElementById("videoElement"),
+         });
+         scanner.addListener("scan", function (content) {
+             console.log(content);
+             toFinUseNo = content;
+             alert(content)
+             
+         });
+         Instascan.Camera.getCameras()
+             .then(function (cameras) {
+                 if (cameras.length > 0) {
+                     scanner.start(cameras[0]);
+                 } else {
+                     console.error("No cameras found.");
+                 }
+             })
+             .catch(function (e) {
+                 console.error(e);
+             });
+         
+     </script>
+  </body>
+</html>

@@ -25,6 +25,7 @@ connection.connect();
 
 
 // ------------------ get Method -------------------------
+
 app.get('/login',function(req,res){
     res.render('login');
 })
@@ -37,7 +38,27 @@ app.get('/signup2', function(req, res){
     res.render('signup2');
 })
 
-
+app.get('/client', function (req, res) {
+    res.render('client');
+  })
+  
+  //guest용 화면
+  app.get('/customer', function (req, res) {
+    res.render('customer');
+  })
+  
+  app.get('/camera', function (req, res) {
+    res.render('camera');
+  })
+  
+  //host용 화면
+  app.get('/admin', function (req, res) {
+    res.render('admin');
+  })
+  
+  app.get('/qrcode', function (req, res) {
+    res.render('qrcode');
+  })  
 
 // ------------회원가입 --------------------------//
 var clientId = "o3fwum9rDR2LUKdyY46O4tfA7kaRdzjIdKuv7FNU"

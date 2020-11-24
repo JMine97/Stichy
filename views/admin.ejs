@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #container {
+        border: 1px solid black;
+        width: 300px;
+        height: 500px;
+        padding: 5px;
+        justify-content: center;
+      }
+      #list {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        border: 1px solid black;
+        height: 350px;
+      }
+
+      .input {
+        margin: 10px 30px;
+      }
+
+      #title {
+        display: flex;
+        justify-content: center;
+        font-size: 25px;
+        margin-top: 60px;
+        margin-bottom: 20px;
+      }
+
+      #createQr {
+        display: flex;
+        margin-top: 30px;
+        justify-content: center;
+        border: 1px solid black;
+        border-radius: 30px;
+        width: 150px;
+        height: 40px;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='container'>
+      <div id='title'>X월 X일 Event</div>
+      <div id='list'>
+        <input class='input'>
+        <input class='input'>
+        <input class='input'>
+        <input class='input'>
+        <input class='input'>
+        <input class='input'>
+        <input class='input'>
+        <input class='input'>
+      </div>
+      <div style='
+        display: flex; 
+        justify-content: 
+        flex-end; 
+        margin-top: 10px;'>
+        <div id='createQr' onClick='createQrClick()'>QR생성</div>
+        total: 225,000
+        
+      </div>
+      
+    </div>
+    <script>
+      const fin_use_num='199167169057888133242441';
+      const createQrClick = () => window.location.href='./qrcode?fin_use_num=' + fin_use_num ;
+    </script>
+  </body>
+</html>

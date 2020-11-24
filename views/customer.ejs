@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #container {
+        border: 1px solid black;
+        width: 300px;
+        height: 500px;
+        padding: 5px;
+      }
+      #customer{
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 50px;
+      }
+      #messageContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid black;
+        width: 200px;
+        height: 250px;
+      }
+      #qrReader {
+        display: flex;
+        margin-top: 30px;
+        justify-content: center;
+        border: 1px solid black;
+        border-radius: 30px;
+        width: 150px;
+        height: 40px;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='container'>
+      <div id='customer'>
+        
+          <textarea id ='messageContainer' rows="16" cols="40" placeholder="메시지를 입력해주세요."></textarea>
+        
+      </div>
+      <div style='display: flex; justify-content: center;'>
+        <div style='width: 45px;'>금액:</div>
+        <input>
+      </div>
+      <div style='display: flex; justify-content: center;'>
+        <div id='qrReader' onClick='cameraClick()'>qr리더</div>
+      </div>
+    </div>
+    <script>
+      const cameraClick = () => window.location.href='./camera'
+    </script>
+  </body>
+</html>

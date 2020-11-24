@@ -72,9 +72,10 @@
         justify-content: 
         flex-end; 
         margin-top: 10px;'>
-      <div id='createQr' class='button' onClick='createQrClick()'>QR생성</div>
+      
       total: 225,000
-
+      <div class='button' id="createQrClick">QR생성</div>
+      
     </div>
 
   </div>
@@ -82,7 +83,8 @@
   <script src="js/jquery-3.2.1.min.js"></script>
   <script>
     const userEmail = localStorage.getItem("userEmail");
-    console.log("userEmail", userEmail);
+    var fin_use_num;
+    // console.log("userEmail", userEmail);
     fetchUserData();
     function fetchUserData() {
       $.ajax({
@@ -92,47 +94,15 @@
           userEmail: userEmail
         },
         success: function (data) {
-          // for (var i = 0; i < data.res_list.length; i++) {
-          //   $("#cardList").append(
-          //     '<div class="balance-card mb-15">' +
-          //       i +
-          //       '<div class="d-flex align-items-center">' +
-          //       '<div class="d-flex flex-grow">' +
-          //       '<div class="mr-auto">' +
-          //       '<h1 class="b-val">' +
-          //       data.res_list[i].account_alias +
-          //       "</h1>" +
-          //       '<p class="g-text mb-10">' +
-          //       data.res_list[i].fintech_use_num +
-          //       "</p>" +
-          //       "</div>" +
-          //       '<div class="ml-auto align-self-end">' +
-          //       '<a href="/balance?fin_use_num=' +
-          //       data.res_list[i].fintech_use_num +
-          //       '">잔액조회</a>' +
-          //       "||||" +
-          //       '<a href="/qrcode?fin_use_num=' +
-          //       data.res_list[i].fintech_use_num +
-          //       '">QR생성</a>' +
-          //       "</div>" +
-          //       "</div>" +
-          //       "</div>" +
-          //       "</div>"
-          //   );
-          // }
-        },
-      });
+          // console.log('data' ,data);
+          var fin_use_num = data.res_list[0].fintech_use_num;
+          console.log(fin_use_num);
+          $("#createQrClick").click(function() { window.location.href = "/qrcode?fin_use_num=" + fin_use_num; } );
+         
+          
+      }});
     }
-  </script>
-  <script>
-    
-    // if (fin_use_num == "") {
-    //   alert("로그인해주세요");
-    //   window.location.href = "/login";
-    // }
-    // const createQrClick = () => window.location.href = './qrcode?fin_use_num=' + fin_use_num;
-    const fin_use_num='199167169057888133242441';
-    const createQrClick = () => window.location.href = './qrcode?fin_use_num=' + fin_use_num;
+   
   </script>
 </body>
 

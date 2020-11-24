@@ -44,7 +44,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost', //서버의 주소
   user     : 'root', // 접근 계정 이름
-  password : 'ehfwkd53', // 계정 비밀번호
+  password : '3751', // 계정 비밀번호
 
   database : 'fintech' // 데이터베이스 이름
 });
@@ -201,11 +201,11 @@ module.exports = authMiddleware;
 //
 
 //미들웨어 auth
-app.post('/list', auth, function(req, res){
+//auth 왜 안 되는지
+app.post('/list', function(req, res){
     //user/me 요청 만들기
-    var email = req.decoded.email;
-    console.log('log');
-    console.log(email);
+    var email = req.body.userEmail;
+    console.log('server', email);
     var userSelectSql = "SELECT * FROM user WHERE email = ?";
     connection.query(userSelectSql, [email], function(err, results){
       if(err){throw err}

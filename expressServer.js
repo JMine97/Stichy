@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); 
 
 app.set('view engine', 'ejs'); // 사용하는 뷰 엔진
+app.set('views', __dirname + '/views');//랜더링할 파일이 있는 디렉토리 
 
 
 app.use(express.static(__dirname + '/public')); //디자인 파일이 위치할 정적 요소들을 저장하는 디렉토리
@@ -18,7 +19,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost', //서버의 주소
   user     : 'root', // 접근 계정 이름
-  password : 'root', // 계정 비밀번호
+  password : '3751', // 계정 비밀번호
   database : 'fintech' // 데이터베이스 이름
 });
 connection.connect();
@@ -168,6 +169,40 @@ const authMiddleware = (req, res, next) => {
 }
 module.exports = authMiddleware;
 //
+
+//미들웨어 auth
+app.post('/list', auth, function(req, res){
+    //user/me 요청 만들기
+    var email = req.decoded.email;
+    console.log('log');
+    console.log(email);
+    var userSelectSql = "SELECT * FROM user WHERE email = ?";
+    connection.query(userSelectSql, [email], function(err, results){
+      if(err){throw err}
+      else {
+        var userAccessToken = results[0].accesstoken;
+        var userSeqNo = results[0].userseqno;
+        var option = {
+          method : "GET",
+          url : "https://testapi.openbanking.or.kr/v2.0/user/me",
+          headers : {
+            //토큰
+            Authorization : "Bearer " + userAccessToken
+          },
+          //get 요청을 보낼때 데이터는 qs, post 에 form, json 입력가능
+          qs : {
+            user_seq_no : userSeqNo
+          }
+        }
+        request(option, function (error, response, body) {
+          //json이 아니면 바꿔줘야 출력됨
+          var listResult = JSON.parse(body);
+          console.log(listResult);
+          res.json(listResult)
+        });
+      }    
+    })
+  })
 
 
 

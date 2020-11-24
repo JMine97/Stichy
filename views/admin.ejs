@@ -1,82 +1,139 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <style>
-      body {
-        margin: 0px;
-        padding: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      #container {
-        border: 1px solid black;
-        width: 300px;
-        height: 500px;
-        padding: 5px;
-        justify-content: center;
-      }
-      #list {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        border: 1px solid black;
-        height: 350px;
-      }
 
-      .input {
-        margin: 10px 30px;
-      }
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0px;
+      padding: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-      #title {
-        display: flex;
-        justify-content: center;
-        font-size: 25px;
-        margin-top: 60px;
-        margin-bottom: 20px;
-      }
+    #container {
+      border: 1px solid black;
+      width: 300px;
+      height: 500px;
+      padding: 5px;
+      justify-content: center;
+    }
 
-      #createQr {
-        display: flex;
-        margin-top: 30px;
-        justify-content: center;
-        border: 1px solid black;
-        border-radius: 30px;
-        width: 150px;
-        height: 40px;
-        align-items: center;
-      }
-    </style>
-  </head>
-  <body>
-    <div id='container'>
-      <div id='title'>X월 X일 Event</div>
-      <div id='list'>
-        <input class='input'>
-        <input class='input'>
-        <input class='input'>
-        <input class='input'>
-        <input class='input'>
-        <input class='input'>
-        <input class='input'>
-        <input class='input'>
-      </div>
-      <div style='
+    #list {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      border: 1px solid black;
+      height: 350px;
+    }
+
+    .input {
+      margin: 10px 30px;
+    }
+
+    #title {
+      display: flex;
+      justify-content: center;
+      font-size: 25px;
+      margin-top: 60px;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      display: flex;
+      margin-top: 30px;
+      justify-content: center;
+      border: 1px solid black;
+      border-radius: 30px;
+      width: 150px;
+      height: 40px;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='container'>
+    <div id='title'>X월 X일 Event</div>
+    <div id='list'>
+      <input class='input'>
+      <input class='input'>
+      <input class='input'>
+      <input class='input'>
+      <input class='input'>
+      <input class='input'>
+      <input class='input'>
+      <input class='input'>
+    </div>
+    <div style='
         display: flex; 
         justify-content: 
         flex-end; 
         margin-top: 10px;'>
-        <div id='createQr' onClick='createQrClick()'>QR생성</div>
-        total: 225,000
-        
-      </div>
-      
+      <div id='createQr' class='button' onClick='createQrClick()'>QR생성</div>
+      total: 225,000
+
     </div>
-    <script>
-      const fin_use_num='199167169057888133242441';
-      const createQrClick = () => window.location.href='./qrcode?fin_use_num=' + fin_use_num ;
-    </script>
-  </body>
+
+  </div>
+  <!-- JQuery library file. requared all pages -->
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script>
+    const userEmail = localStorage.getItem("userEmail");
+    console.log("userEmail", userEmail);
+    fetchUserData();
+    function fetchUserData() {
+      $.ajax({
+        url: "/list",
+        type: "POST",
+        data: {
+          userEmail: userEmail
+        },
+        success: function (data) {
+          // for (var i = 0; i < data.res_list.length; i++) {
+          //   $("#cardList").append(
+          //     '<div class="balance-card mb-15">' +
+          //       i +
+          //       '<div class="d-flex align-items-center">' +
+          //       '<div class="d-flex flex-grow">' +
+          //       '<div class="mr-auto">' +
+          //       '<h1 class="b-val">' +
+          //       data.res_list[i].account_alias +
+          //       "</h1>" +
+          //       '<p class="g-text mb-10">' +
+          //       data.res_list[i].fintech_use_num +
+          //       "</p>" +
+          //       "</div>" +
+          //       '<div class="ml-auto align-self-end">' +
+          //       '<a href="/balance?fin_use_num=' +
+          //       data.res_list[i].fintech_use_num +
+          //       '">잔액조회</a>' +
+          //       "||||" +
+          //       '<a href="/qrcode?fin_use_num=' +
+          //       data.res_list[i].fintech_use_num +
+          //       '">QR생성</a>' +
+          //       "</div>" +
+          //       "</div>" +
+          //       "</div>" +
+          //       "</div>"
+          //   );
+          // }
+        },
+      });
+    }
+  </script>
+  <script>
+    
+    // if (fin_use_num == "") {
+    //   alert("로그인해주세요");
+    //   window.location.href = "/login";
+    // }
+    // const createQrClick = () => window.location.href = './qrcode?fin_use_num=' + fin_use_num;
+    const fin_use_num='199167169057888133242441';
+    const createQrClick = () => window.location.href = './qrcode?fin_use_num=' + fin_use_num;
+  </script>
+</body>
+
 </html>

@@ -4,6 +4,8 @@ const app = express()
 const request = require('request');
 const jwt = require('jsonwebtoken');
 const auth = require('./lib/auth');
+const { Script } = require('vm');
+
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: false })); 
@@ -13,12 +15,35 @@ app.set('view engine', 'ejs'); // 사용하는 뷰 엔진
 
 app.use(express.static(__dirname + '/public')); //디자인 파일이 위치할 정적 요소들을 저장하는 디렉토리
 
+//------------------카카오 API---------------------------
+var passport = require('passport');
+var KakaoStrategy = require('passport-kakao').Strategy;
+
+// localhost:3000/login/kakao로 들어오면(get으로 들어오면) passport.authenticate를 실행(여기서는 임의로 login-kakao로 이름을 줌)
+app.get('/kakaologin', passport.authenticate('login-kakao'));
+
+// 이름을 login-kakao로 임의로 주었습니다 그래서 /kakao로 들어오면 아래가 실행이 됩니다
+passport.use('login-kakao', new KakaoStrategy({
+        clientID : 'a85690d51bf65cc8b3ba6ab3c981b9d5',
+        callbackURL : 'http://localhost:3000/login/kakao' // 카카오 개발자 사이트에서 지정한 리다이렉트 URL 
+    },
+    function(accessToken, refreshToken, profile, done) {
+        console.log(profile);
+        return done(null, profile);
+    }
+));
+
+app.get('/oauth/kakao/callback', passport.authenticate('login-kakao', {
+    successRedirect: '/client', // 성공하면 /main으로 가도록
+    failureRedirect: '/'
+}));
+
 //------------------database 연결 ----------------------
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost', //서버의 주소
   user     : 'root', // 접근 계정 이름
-  password : 'root', // 계정 비밀번호
+  password : 'ehfwkd53', // 계정 비밀번호
   database : 'fintech' // 데이터베이스 이름
 });
 connection.connect();
@@ -29,6 +54,11 @@ connection.connect();
 app.get('/login',function(req,res){
     res.render('login');
 })
+
+// app.get('/kakaologin', function(req, res){
+//     res.render('kakaologin');
+// })
+
 
 app.get('/signup', function(req, res){
     res.render('signup');
@@ -42,7 +72,6 @@ app.get('/client', function (req, res) {
     res.render('client');
 })
   
-
 //guest용 화면
 app.get('/customer', function (req, res) {
 res.render('customer');
@@ -62,8 +91,8 @@ res.render('qrcode');
 })  
 
 // ------------회원가입 --------------------------//
-var clientId = "o3fwum9rDR2LUKdyY46O4tfA7kaRdzjIdKuv7FNU"
-var clientSecret = "b4xVe7ARKAdL2CxDjVjNEbOMZY2cyCBcvNd4XssW"
+var clientId = "Eor2pcYLGOvK2Z7RADIK4QEhUywbbhKl03euqhQX"
+var clientSecret = "jrwlWjNgDUvsp4ZJqwuOMJH1DbA5QJMDJfNipWEn"
 
 
 app.post('/signup', function(req, res){

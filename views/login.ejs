@@ -46,11 +46,14 @@
         </div>
         <div id='info'>
           <div style='width: 70px'>비밀번호: </div>
-          <input id="userPassword" class='input'>
+          <input id="userPassword" class='input'type="password" placeholder="password">
         </div>
       </div>
       <div style='display: flex; justify-content: center;'>
-        <button ype="button" id="loginBtn">확인</button>
+        <button type="button" id="loginBtn">확인</button>
+      </div>
+      <div style='display:flex;justify-content:center;margin-top:20px;'>
+        <button type="button" id="kakaoLoginBtn">카카오로 로그인하기</button>
       </div>
     </div>
 
@@ -78,6 +81,38 @@
                 }
             });
           })
+     $("#loginBtn").click(function(){
+    var userEmail = $("#userEmail").val();
+    var userPassword = $("#userPassword").val();
+      $.ajax({
+              url: "/login",
+              type: "POST",
+              data: {
+                userEmail: userEmail,
+                userPassword: userPassword,
+              },
+              success: function (data) {
+                console.log('우리의 토큰', data);
+                sessionStorage.setItem('ourtoken', data);
+                window.location.href = "/client";
+                }
+            });
+          })
+      $("#kakaoLoginBtn").click(function(){
+     
+          $.ajax({
+                  url: "/login",
+                  type: "POST",
+                  data: {
+                  },
+                  success: function (data) {
+            
+                    window.location.href = "/kakaologin";
+                    }
+                });
+                  })
+
+
     </script>
 
   </body>

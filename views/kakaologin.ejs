@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #container {
+        border: 1px solid black;
+        width: 300px;
+        height: 500px;
+        
+      }
+      #title {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        font-size: 20px;
+      }
+      #info{
+        display: flex;
+        height: 100px;
+        align-items: center;
+        justify-content: center;
+      }
+      .input {
+        border: 0px;
+        border-bottom: 1px solid black;
+
+      }
+    </style>
+  </head>
+  <body>
+    <div id='container'>
+      <div id='title'>로그인</div>
+      <div id='content'>
+        <div id='info'>
+          <div style='width: 70px'>이메일: </div>
+          <input id="userEmail" class='input'>
+        </div>
+        <div id='info'>
+          <div style='width: 70px'>비밀번호: </div>
+          <input id="userPassword" class='input'type="password" placeholder="password">
+        </div>
+      </div>
+      <div style='display: flex; justify-content: center;'>
+        <button ype="button" id="loginBtn">확인</button>
+      </div>
+    </div>
+
+
+    <!-- JQuery library file. requared all pages -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <!-- Template global script file. requared all pages -->
+    <script src="js/global.script.js"></script>
+    <script>
+    $("#loginBtn").click(function(){
+    var userEmail = $("#userEmail").val();
+    var userPassword = $("#userPassword").val();
+      $.ajax({
+              url: "/login",
+              type: "POST",
+              data: {
+                userEmail: userEmail,
+                userPassword: userPassword,
+              },
+              success: function (data) {
+                console.log('우리의 토큰', data);
+                sessionStorage.setItem('ourtoken', data);
+                window.location.href = "/client";
+                }
+            });
+          })
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      #container {
+        border: 1px solid black;
+        width: 300px;
+        height: 500px;
+        padding: 5px;
+      }
+
+      #logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 100px;
+      }
+
+
+      #logoText {
+        display: flex;
+        margin-top: 20px;
+        width: 150px;
+        height: 150px;
+        border: 1px solid black;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .button {
+        display: flex;
+        justify-content: center;
+        border: 1px solid black;
+        height: 40px;
+        align-items: center;
+        border-radius: 30px;
+        margin: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='container'>
+      <div id='logo'>
+        <div id='logoText'>Logo</div>
+      </div>
+      <div class='button' onClick='customerClick()'>내빈객</div>
+      <div class='button' onClick='adminClick()'>관리자</div>
+    </div>
+    <script>
+      const customerClick = () => window.location.href='/customer';
+      const adminClick = () => window.location.href = '/admin';
+    </script>
+  </body>
+</html>

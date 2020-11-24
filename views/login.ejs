@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #container {
+        border: 1px solid black;
+        width: 300px;
+        height: 500px;
+        
+      }
+      #title {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        font-size: 20px;
+      }
+      #info{
+        display: flex;
+        height: 100px;
+        align-items: center;
+        justify-content: center;
+      }
+      .input {
+        border: 0px;
+        border-bottom: 1px solid black;
+
+      }
+    </style>
+  </head>
+  <body>
+    <div id='container'>
+      <div id='title'>몇가지만 <br>입력해주세요.</div>
+      <div id='content'>
+        <div id='info'>
+          <div style='width: 70px'>이름: </div>
+          <input id="userName" class='input'>
+        </div>
+        <div id='info'>
+          <div style='width: 70px'>이메일: </div>
+          <input id="userEmail" class='input'>
+        </div>
+        <div id='info'>
+          <div style='width: 70px'>비밀번호: </div>
+          <input id="userPassword" class='input'>
+        </div>
+      </div>
+      <div style='display: flex; justify-content: center;'>
+        <button onClick='onClick()'>확인</button>
+      </div>
+    </div>
+
+    <!-- JQuery library file. requared all pages -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+   
+    <script>
+      const onClick = () => {
+        var userName = $("#userName").val();
+      var userEmail = $("#userEmail").val();
+      var userPassword = $("#userPassword").val();
+        localStorage.setItem('userName', userName);
+        localStorage.setItem('userEmail', userEmail);
+        localStorage.setItem('userPassword', userPassword);
+        window.location.href="/login2";
+      }
+    </script>
+
+    
+  </body>
+</html>

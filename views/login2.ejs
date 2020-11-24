@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset='UTF-8'>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #container {
+        border: 1px solid black;
+        width: 300px;
+        height: 500px;
+        
+      }
+      #title {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        font-size: 20px;
+      }
+      #info{
+        display: flex;
+        height: 100px;
+        align-items: center;
+        justify-content: center;
+      }
+      .input {
+        border: 0px;
+        border-bottom: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='container'>
+      <div id='title'>거의 다 됐어요</div>
+      <div id='content'>
+        <div id='info'>
+          <div style='width: 70px'>엑세스 토큰: </div>
+          <input id='userAccessToken' class='input'>
+        </div>
+        <div id='info'>
+          <div style='width: 70px'>리프레시 토큰: </div>
+          <input id='userRefreshToken' class='input'>
+        </div>
+        <div id='info'>
+          <div style='width: 70px'>seqno: </div>
+          <input id='userSeqNo' class='input'>
+        </div>
+      </div>
+      <div style='display: flex; justify-content: center;'>
+        <button type="button" id="signupBtn"'>확인</button>
+      </div>
+    </div>
+
+
+    <!-- JQuery library file. requared all pages -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+
+    <script>
+      $("#authBtn").click(function () {
+        var apiKey = "o3fwum9rDR2LUKdyY46O4tfA7kaRdzjIdKuv7FNU"
+        //#자기 키로 변경
+        var tmpWindow = window.open("about:blank");
+        tmpWindow.location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?response_type=code&client_id="+apiKey+"&redirect_uri=http://localhost:3000/authResult&scope=login inquiry transfer&state=12345678901234567890123456789012&auth_type=0"
+      });
+      $("#signupBtn").click(function () {
+        //#signup Post 라우터에 데이터 전송!
+        var userName = localStorage.getItem('userName');
+        var userEmail = localStorage.getItem('userEmail');
+        var userPassword = localStorage.getItem('userPassword');
+        var userAccessToken = $("#userAccessToken").val();
+        var userRefreshToken = $("#userRefreshToken").val();
+        var userSeqNo = $("#userSeqNo").val();
+        $.ajax({
+          url: "/signup",
+          type: "POST",
+          data: {
+            userName: userName,
+            userEmail: userEmail,
+            userPassword: userPassword,
+            userAccessToken: userAccessToken,
+            userRefreshToken: userRefreshToken,
+            userSeqNo: userSeqNo,
+          },
+          success: function (data) {
+              if(data == "1"){
+                  alert('회원가입이 완료되었습니다!');
+                  window.location.href = "/login"
+              }
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

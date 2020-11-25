@@ -27,10 +27,12 @@
       flex-direction: column;
       border: 1px solid black;
       height: 350px;
+      overflow-y:scroll;
     }
 
     .input {
       margin: 10px 30px;
+      border: 1px solid rgb(118, 118, 118);
     }
 
     #title {
@@ -48,14 +50,14 @@
   <div id='container'>
     <div id='title'>X월 X일 Event</div>
     <div id='list'>
+      <!-- <input class='input'>
       <input class='input'>
       <input class='input'>
       <input class='input'>
       <input class='input'>
       <input class='input'>
       <input class='input'>
-      <input class='input'>
-      <input class='input'>
+      <input class='input'> -->
     </div>
     <div style='
         display: flex; 
@@ -75,23 +77,47 @@
   <script src="js/jquery-3.2.1.min.js"></script>
   <script>
     const userEmail = localStorage.getItem("userEmail");
-    var fin_use_num;
-    // console.log("userEmail", userEmail);
-    fetchUserData();
-    function fetchUserData() {
+    fetchMessageData();
+    function fetchMessageData() {
       $.ajax({
-        url: "/list",
+        url: "/message",
         type: "POST",
         data: {
           userEmail: userEmail
         },
         success: function (data) {
           // console.log('data' ,data);
-          var fin_use_num = data.res_list[0].fintech_use_num;
-          console.log(fin_use_num);
-          $("#createQrClick").click(function() { window.location.href = "/qrcode?fin_use_num=" + fin_use_num; } );
-         
-          
+          // console.log(data.length);
+          for (var i = 0; i < data.length; i++) {
+              $("#list").append('<div class="input">' + data[i].message + '</div>'
+                
+                // '<div class="balance-card mb-15">' +
+                //   i +
+                //   '<div class="d-flex align-items-center">' +
+                //   '<div class="d-flex flex-grow">' +
+                //   '<div class="mr-auto">' +
+                //   '<h1 class="b-val">' +
+                //   data.res_list[i].account_alias +
+                //   "</h1>" +
+                //   '<p class="g-text mb-10">' +
+                //   data.res_list[i].fintech_use_num +
+                //   "</p>" +
+                //   "</div>" +
+                //   '<div class="ml-auto align-self-end">' +
+                //   '<a href="/balance?fin_use_num=' +
+                //   data.res_list[i].fintech_use_num +
+                //   '">잔액조회</a>' +
+                //   "||||" +
+                //   '<a href="/qrcode?fin_use_num=' +
+                //   data.res_list[i].fintech_use_num +
+                //   '">QR생성</a>' +
+                //   "</div>" +
+                //   "</div>" +
+                //   "</div>" +
+                //   "</div>"
+              );
+            }
+
       }});
     }
    

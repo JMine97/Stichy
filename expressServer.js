@@ -240,37 +240,17 @@ app.post('/list', function(req, res){
 //메시지 가져오는 기능
 app.post('/message', function(req, res){
   var email = req.body.userEmail;
-  console.log('server', email);
-  var userSelectSql = "SELECT * FROM user WHERE email = ?";
+  // console.log('server', email);
+  var userSelectSql = "SELECT message FROM list WHERE host_name = ?";
   connection.query(userSelectSql, [email], function(err, results){
     if(err){throw err}
     else {
-      var userAccessToken = results[0].accesstoken;
-      var userSeqNo = results[0].userseqno;
-      var option = {
-        method : "GET",
-        url : "https://testapi.openbanking.or.kr/v2.0/user/me",
-        headers : {
-          //토큰
-          Authorization : "Bearer " + userAccessToken
-        },
-        //get 요청을 보낼때 데이터는 qs, post 에 form, json 입력가능
-        qs : {
-          user_seq_no : userSeqNo
-        }
-      }
-      request(option, function (error, response, body) {
-        //json이 아니면 바꿔줘야 출력됨
-        var listResult = JSON.parse(body);
-        console.log(listResult);
-        res.json(listResult)
-      });
-    }    
+      var message = results;
+      // console.log(message);
+    }
+    res.json(message)
   })
 })
-
-
-
 
 
 //----------------------- 서비스 작동 ----------------------------------//

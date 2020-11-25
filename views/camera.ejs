@@ -38,16 +38,37 @@
         <video id='videoElement' autoplay='true'></video>
       </div>
     </div>
-  
+    <!-- JQuery library file. requared all pages -->
+    <script src="js/jquery-3.2.1.min.js"></script>
      <script type="text/javascript" src="js/instascan.min.js"></script>
      <script>
+       var jwtToken = sessionStorage.getItem("ourtoken");
+        var message = localStorage.getItem('message');
+        var money = localStorage.getItem('price');
          let scanner = new Instascan.Scanner({
              video: document.getElementById("videoElement"),
          });
          scanner.addListener("scan", function (content) {
              console.log(content);
              toFinUseNo = content;
-             alert(content)
+             alert(content);
+
+             $.ajax({
+                url: "/record",
+                type: "POST",
+                headers: {
+                  ourtoken: jwtToken,
+                },
+                data: {
+                  message : localStorage.getItem('message'),
+                  money : localStorage.getItem('price'),
+                  toFinUseNo : toFinUseNo
+                },
+                success: function (data) {
+                  console.log(data); 
+                }
+          })
+
              
          });
          Instascan.Camera.getCameras()

@@ -81,23 +81,7 @@
                 }
             });
           })
-     $("#loginBtn").click(function(){
-    var userEmail = $("#userEmail").val();
-    var userPassword = $("#userPassword").val();
-      $.ajax({
-              url: "/login",
-              type: "POST",
-              data: {
-                userEmail: userEmail,
-                userPassword: userPassword,
-              },
-              success: function (data) {
-                console.log('우리의 토큰', data);
-                sessionStorage.setItem('ourtoken', data);
-                window.location.href = "/client";
-                }
-            });
-          })
+   
       $("#kakaoLoginBtn").click(function(){
      
           $.ajax({

@@ -4,6 +4,7 @@ const app = express()
 const request = require('request');
 const jwt = require('jsonwebtoken');
 const auth = require('./lib/auth');
+var store = require('store');
 const { Script } = require('vm');
 
 
@@ -44,7 +45,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost', //서버의 주소
   user     : 'root', // 접근 계정 이름
-  password : '3751', // 계정 비밀번호
+  password : 'root', // 계정 비밀번호
 
   database : 'fintech' // 데이터베이스 이름
 });
@@ -125,7 +126,7 @@ app.post('/login', function(req, res){
     var userPassword = req.body.userPassword;
     var searchEmailSql = "SELECT * FROM user WHERE email = ?";
     connection.query(searchEmailSql,[userEmail, userPassword], function (error, results, fields) {
-        if(error){
+       if(error){
             console.error(error);
             res.json(0);
             throw error;
@@ -135,12 +136,15 @@ app.post('/login', function(req, res){
                 res.json(3)
             }
             else {
+                store.set('user', results[0].name);
+
                 var Password = results[0].password;
                 if(Password == userPassword){
                     var tokenKey = "f@i#n%tne#ckfhlafkd0102test!@#%"
                     jwt.sign(
                       {
                           userId : results[0].id,
+                          userName : results[0].name,
                           userEmail : results[0].email
                       },
                       tokenKey,
@@ -269,7 +273,21 @@ app.post('/message', function(req, res){
   })
 })
 
+app.post('/record', function(req, res){
+  
+  var userName = store.get('user');
 
+  var email = req.body.userEmail;
+  
+
+  var insertUserSql = "INSERT INTO list (`visitor_name`, `money`, `message`, `toFinUseNo`) VALUES ( ?, ?, ?, ?)"
+  connection.query(insertUserSql,[userName, req.body.money, req.body.message, req.body.toFinUseNo], function (error, results, fields) {
+    if (error) throw error;
+    else {
+      res.json('insert success');
+    }
+  });
+})
 
 
 
@@ -303,3 +321,5 @@ app.get('/authResult', function(req, res){
 app.listen(3000, function(){
     console.log('서버가 3000번 포트에서 실행중 입니다.');
 })
+
+

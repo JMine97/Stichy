@@ -52,14 +52,28 @@
       </div>
       <div style='display: flex; justify-content: center;'>
         <div style='width: 45px;'>금액:</div>
-        <input>
+        <input id='price' class='input'>
       </div>
       <div style='display: flex; justify-content: center;'>
         <div id='qrReader' onClick='cameraClick()'>qr리더</div>
       </div>
     </div>
+     <!-- JQuery library file. requared all pages -->
+     <script src="js/jquery-3.2.1.min.js"></script>
+
+     <!-- Template global script file. requared all pages -->
+    <script src="js/global.script.js"></script>
+
     <script>
-      const cameraClick = () => window.location.href='./camera'
+      
+     
+
+      const cameraClick = () => {
+        localStorage.setItem('price', $("#price").val());
+        localStorage.setItem('message', $("#messageContainer").val());
+        window.location.href='./camera';
+
+      }
     </script>
   </body>
 </html>

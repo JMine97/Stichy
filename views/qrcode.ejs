@@ -4,12 +4,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
 
 <body>
     <div id="qrcode"></div>
     <script src="js/qrcode.js"></script>
     <script>
-        
+
         function getQueryStringObject() {
             var a = window.location.search.substr(1).split("&");
             if (a == "") return {};

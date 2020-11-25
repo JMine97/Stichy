@@ -92,6 +92,10 @@ app.get('/qrcode', function (req, res) {
 res.render('qrcode');
 })  
 
+app.get('/message', function (req, res) {
+  res.render('message');
+  })  
+
 // ------------회원가입 --------------------------//
 var clientId = "Eor2pcYLGOvK2Z7RADIK4QEhUywbbhKl03euqhQX"
 var clientSecret = "jrwlWjNgDUvsp4ZJqwuOMJH1DbA5QJMDJfNipWEn"
@@ -201,7 +205,6 @@ module.exports = authMiddleware;
 //
 
 //미들웨어 auth
-//auth 왜 안 되는지
 app.post('/list', function(req, res){
     //user/me 요청 만들기
     var email = req.body.userEmail;
@@ -233,6 +236,40 @@ app.post('/list', function(req, res){
       }    
     })
   })
+
+//메시지 가져오는 기능
+app.post('/message', function(req, res){
+  var email = req.body.userEmail;
+  console.log('server', email);
+  var userSelectSql = "SELECT * FROM user WHERE email = ?";
+  connection.query(userSelectSql, [email], function(err, results){
+    if(err){throw err}
+    else {
+      var userAccessToken = results[0].accesstoken;
+      var userSeqNo = results[0].userseqno;
+      var option = {
+        method : "GET",
+        url : "https://testapi.openbanking.or.kr/v2.0/user/me",
+        headers : {
+          //토큰
+          Authorization : "Bearer " + userAccessToken
+        },
+        //get 요청을 보낼때 데이터는 qs, post 에 form, json 입력가능
+        qs : {
+          user_seq_no : userSeqNo
+        }
+      }
+      request(option, function (error, response, body) {
+        //json이 아니면 바꿔줘야 출력됨
+        var listResult = JSON.parse(body);
+        console.log(listResult);
+        res.json(listResult)
+      });
+    }    
+  })
+})
+
+
 
 
 

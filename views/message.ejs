@@ -41,16 +41,6 @@
       margin-bottom: 20px;
     }
 
-    .button {
-      display: flex;
-      margin-top: 20px;
-      justify-content: center;
-      border: 1px solid black;
-      border-radius: 30px;
-      width: 140px;
-      height: 40px;
-      align-items: center;
-    }
   </style>
 </head>
 
@@ -76,14 +66,14 @@
       total: 225,000
       
     </div>
-    <div class='button' id="createQrClick" style="float:left;">QR생성</div>
-    <div class='button' onClick='messageClick()' style="float:right;" >메시지 확인</div>
+
+      
+    </div>
 
   </div>
   <!-- JQuery library file. requared all pages -->
   <script src="js/jquery-3.2.1.min.js"></script>
   <script>
-    const messageClick = () => window.location.href='./message'
     const userEmail = localStorage.getItem("userEmail");
     var fin_use_num;
     // console.log("userEmail", userEmail);

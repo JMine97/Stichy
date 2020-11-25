@@ -88,33 +88,12 @@
         success: function (data) {
           // console.log('data' ,data);
           // console.log(data.length);
+          console.log(data);
+          console.log(data[0].message);
+          $("#list").append('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>');
           for (var i = 0; i < data.length; i++) {
               $("#list").append('<div class="input">' + data[i].message + '</div>'
                 
-                // '<div class="balance-card mb-15">' +
-                //   i +
-                //   '<div class="d-flex align-items-center">' +
-                //   '<div class="d-flex flex-grow">' +
-                //   '<div class="mr-auto">' +
-                //   '<h1 class="b-val">' +
-                //   data.res_list[i].account_alias +
-                //   "</h1>" +
-                //   '<p class="g-text mb-10">' +
-                //   data.res_list[i].fintech_use_num +
-                //   "</p>" +
-                //   "</div>" +
-                //   '<div class="ml-auto align-self-end">' +
-                //   '<a href="/balance?fin_use_num=' +
-                //   data.res_list[i].fintech_use_num +
-                //   '">잔액조회</a>' +
-                //   "||||" +
-                //   '<a href="/qrcode?fin_use_num=' +
-                //   data.res_list[i].fintech_use_num +
-                //   '">QR생성</a>' +
-                //   "</div>" +
-                //   "</div>" +
-                //   "</div>" +
-                //   "</div>"
               );
             }
 

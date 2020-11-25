@@ -46,34 +46,52 @@
   <body>
     <div id='container'>
       <div id='customer'>
-        
           <textarea id ='messageContainer' rows="16" cols="40" placeholder="메시지를 입력해주세요."></textarea>
-        
       </div>
       <div style='display: flex; justify-content: center;'>
         <div style='width: 45px;'>금액:</div>
-        <input id='price' class='input'>
+        <input type="text" id="Money" class="form-element"  placeholder="송금금액" value="">
       </div>
       <div style='display: flex; justify-content: center;'>
         <div id='qrReader' onClick='cameraClick()'>qr리더</div>
       </div>
-    </div>
-     <!-- JQuery library file. requared all pages -->
-     <script src="js/jquery-3.2.1.min.js"></script>
+     
+     <div style='display: flex; justify-content: center;'>
+        <button type="button" id="kakaoPay" ><img src="/img/payment_icon_yellow_small.png"></button>
+      </div>
 
-     <!-- Template global script file. requared all pages -->
+    </div>
+
+    <!-- JQuery library file. requared all pages -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- Template global script file. requared all pages -->
     <script src="js/global.script.js"></script>
 
     <script>
+      const cameraClick = () => window.location.href='./camera'
       
-     
 
-      const cameraClick = () => {
-        localStorage.setItem('price', $("#price").val());
-        localStorage.setItem('message', $("#messageContainer").val());
-        window.location.href='./camera';
+      $("#kakaoPay").click(function () {
+      //var tmpWindow = window.open("about:blank");
+      var money=$("#Money").val();
+      
+      $.ajax({
+        url: "/test",
+        type: "POST",
+        data:{
+            money:money
+        },
+        success: function (data) {
+          console.log(data);
+          window.location.href = data.redirectUrl
+          
+          },
+        error:function(error){
+          console.log(error+"dddd")
+        }
+      });
+    });
 
-      }
     </script>
   </body>
 </html>

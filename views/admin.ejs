@@ -71,7 +71,7 @@
         display: flex; 
         justify-content: 
         flex-end; 
-        margin-top: 10px;'>
+        margin-top: 10px;' id='total'>
         total :
       </div>
     
@@ -83,8 +83,12 @@
   <script>
      const messageClick = () => window.location.href='./message'
      const userEmail = localStorage.getItem("userEmail");
+
+
+     //금액 가져오기
      fetchMessageData();
      function fetchMessageData() {
+       var amount=0;
       $.ajax({
         url: "/admin",
         type: "POST",
@@ -99,14 +103,23 @@
           $("#list").append('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>');
           $("#list").append();
           for (var i = 0; i < data.length; i++) {
-              $("#list").append('<div class="input">' + data[i].name + "  " + data[i].money + "원   " + '</div>'
-                
+
+              $("#list").append('<div class="input">' + data[i].name+ "  :  "+  data[i].money + "원" + '</div>'
+
+
               );
+              amount+=Number(data[i].money);
+              // console.log(amount);
             }
+            $("#total").append(amount + "   원");
+            localStorage.setItem('total', amount);
 
       }
     });
   }
+  
+  //fin_use_num 가져오기
+
      var fin_use_num;
      // console.log("userEmail", userEmail);
      fetchUserData();

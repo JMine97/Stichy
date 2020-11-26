@@ -63,9 +63,9 @@
         display: flex; 
         justify-content: 
         flex-end; 
-        margin-top: 10px;'>
+        margin-top: 10px;' id='total'>
       
-      total: 225,000
+      total :
       
     </div>
 
@@ -76,6 +76,9 @@
   <!-- JQuery library file. requared all pages -->
   <script src="js/jquery-3.2.1.min.js"></script>
   <script>
+    var total= localStorage.getItem('total');
+    $("#total").append(total + "   원");
+
     const userEmail = localStorage.getItem("userEmail");
     fetchMessageData();
     function fetchMessageData() {

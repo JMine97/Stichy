@@ -44,8 +44,6 @@
      <script>
        var jwtToken = sessionStorage.getItem("ourtoken");
         var message = localStorage.getItem('message');
-        var money = localStorage.getItem('price');
-        var finusenum = localStorage.getItem('finusenum');
 
          let scanner = new Instascan.Scanner({
              video: document.getElementById("videoElement"),
@@ -88,7 +86,7 @@
              .catch(function (e) {
                  console.error(e);
              });
-        
+
      </script>
   </body>
 </html>

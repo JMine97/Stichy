@@ -58,14 +58,15 @@
       <input class='input'>
       <input class='input'>
       <input class='input'> -->
+      <table>
+        <thead>
+        <th>보낸사람</th>
+        <th>메세지</th>
+      </thead>
+      <tbody id="listTable"></tbody>
+              </table>
     </div>
-    <div style='
-        display: flex; 
-        justify-content: 
-        flex-end; 
-        margin-top: 10px;' id='total'>
-      
-      total :
+    
       
     </div>
 
@@ -93,10 +94,19 @@
           // console.log(data.length);
           //console.log(data);
           //console.log(data[0].message);
-          $("#list").append('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>');
+          $("#title").append(userEmail+ "님의 받은내역");
+          $("#list").append();
           for (var i = 0; i < data.length; i++) {
-              $("#list").append('<div class="input">'   + data[i].name + "  :  " + data[i].message + '</div>'
+
+              $("#listTable").append(
+                "<tr><td>" +
+              
+                  data[i].name +
+                "</td>" +
+                "<td>" +
+                  data[i].message +
                 
+                "</td></tr>"  
               );
             }
 

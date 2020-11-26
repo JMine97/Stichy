@@ -27,12 +27,10 @@
       flex-direction: column;
       border: 1px solid black;
       height: 350px;
-      overflow-y:scroll;
     }
 
     .input {
       margin: 10px 30px;
-      border: 1px solid rgb(118,118,118);
     }
 
     #title {
@@ -61,8 +59,8 @@
     <div id='title'>X월 X일 Event</div>
     <div id='list'>
       <thead>
-        
-        <th>보낸사람</th>
+        <th>번호</th>
+        <th>받는사람</th>
         <th>금액</th>
       </thead>
       
@@ -71,7 +69,7 @@
         display: flex; 
         justify-content: 
         flex-end; 
-        margin-top: 10px;' id='total'>
+        margin-top: 10px;'>
         total :
       </div>
     
@@ -83,12 +81,8 @@
   <script>
      const messageClick = () => window.location.href='./message'
      const userEmail = localStorage.getItem("userEmail");
-
-
-     //금액 가져오기
      fetchMessageData();
      function fetchMessageData() {
-       var amount=0;
       $.ajax({
         url: "/admin",
         type: "POST",
@@ -98,28 +92,20 @@
         success: function (data) {
           // console.log('data' ,data);
           // console.log(data.length);
-          //console.log(data);
-          //console.log(data[0].name);
-          $("#list").append('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>');
+          console.log(data);
+          console.log(data[0].name);
           $("#list").append();
           for (var i = 0; i < data.length; i++) {
-
-              $("#list").append('<div class="input">' + data[i].name+ "  :  "+  data[i].money + "원" + '</div>'
-
-
+              $("#list").append('<div class="input">' + data[i].no + "  " + data[i].name + "   " + data[i].money + '</div>'
+                
               );
-              amount+=Number(data[i].money);
-              // console.log(amount);
             }
-            $("#total").append(amount + "   원");
-            localStorage.setItem('total', amount);
 
       }
     });
   }
-  
-  //fin_use_num 가져오기
 
+  
      var fin_use_num;
      // console.log("userEmail", userEmail);
      fetchUserData();

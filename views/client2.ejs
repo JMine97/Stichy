@@ -52,12 +52,12 @@
       <div id='logo'>
         <div id='logoText'>Logo</div>
       </div>
-      <div class='button' onClick='customerClick()'>내빈객</div>
-      <div class='button' onClick='adminClick()'>관리자</div>
+      <div class='button' onClick='customerClick()'>보내기</div>
+      <div class='button' onClick='adminClick()'>보낸내역보기</div>
     </div>
     <script>
-      const customerClick = () => window.location.href='/client2';
-      const adminClick = () => window.location.href = '/admin';
+      const customerClick = () => window.location.href='/customer';
+      const adminClick = () => window.location.href = '/sendlist';
     </script>
   </body>
 </html>

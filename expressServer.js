@@ -76,6 +76,12 @@ app.get('/client', function (req, res) {
 })
   
 //guest용 화면
+app.get('/client2', function (req, res) {
+  res.render('client2');
+  })
+  app.get('/sendlist', function (req, res) {
+    res.render('sendlist');
+    })
 app.get('/customer', function (req, res) {
 res.render('customer');
 })
@@ -245,15 +251,31 @@ app.post('/list', function(req, res){
 app.post('/admin', function(req, res){
   var email = req.body.userEmail;
   // console.log('server', email);
-  // var userSelectSql = "SELECT * from user inner join list on user.email=list.receiver where email=?";
-  var userSelectSql = "SELECT * from user inner join list on user.email=list.sender where receiver=?";
+ // var userSelectSql = "SELECT * from user inner join list on user.email=list.receiver where email=?";
+ var userSelectSql = "SELECT * from user inner join list on user.email=list.sender where receiver=?";
   connection.query(userSelectSql, [email], function(err, results){
     if(err){throw err}
     else {
       var admin = results;
-      console.log(admin);
+      // console.log(admin);
+      console.log(admin)
     }
     res.json(admin)
+  })
+})
+
+//보낸내역 가져오기
+app.post('/sendlist', function(req, res){
+  var email = req.body.userEmail;
+  // console.log('server', email);
+  var userSelectSql = "SELECT * from user inner join list on user.email=list.sender where email=?";
+  connection.query(userSelectSql, [email], function(err, results){
+    if(err){throw err}
+    else {
+      var sendlist = results;
+      
+    }
+    res.json(sendlist)
   })
 })
 
@@ -261,7 +283,6 @@ app.post('/admin', function(req, res){
 app.post('/message', function(req, res){
   var email = req.body.userEmail;
   // console.log('server', email);
-
   var userSelectSql = "SELECT name, message from user inner join list on user.email=list.sender where receiver=?";
   connection.query(userSelectSql, [email], function(err, results){
     if(err){throw err}

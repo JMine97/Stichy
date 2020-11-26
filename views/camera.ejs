@@ -44,8 +44,6 @@
      <script>
        var jwtToken = sessionStorage.getItem("ourtoken");
         var message = localStorage.getItem('message');
-        var money = localStorage.getItem('price');
-        var finusenum = localStorage.getItem('finusenum');
 
          let scanner = new Instascan.Scanner({
              video: document.getElementById("videoElement"),
@@ -54,7 +52,7 @@
          scanner.addListener("scan", function (content) {
              console.log(content);
              toFinUseNo = content;
-             alert(content);
+            //  alert(content);
 
              $.ajax({
                 url: "/record",
@@ -70,6 +68,8 @@
                 },
                 success: function (data) {
                   console.log(data); 
+                  alert("송금에 성공하셨습니다!");
+                  window.location.href = "/client";
                 }
           })
 
@@ -86,27 +86,7 @@
              .catch(function (e) {
                  console.error(e);
              });
-             function pay(finusenum) {
-        console.log(finusenum + "");
-        $.ajax({
-          url: "/withdraw",
-          type: "POST",
-          headers: {
-            ourtoken: jwtToken,
-          },
-          data: {
-            fin_use_num: finusenum, //내계좌
-            to_fin_use_num: toFinUseNo, //전송할 계좌
-            amount : aa//금액
-            // amount: $("#amountInput").val(),
-          },
-          success: function (data) {
-            if (data.rsp_code == "A0000") {
-              alert("전송완료");
-            }
-          },
-        });
-      }
+             
      </script>
   </body>
 </html>

@@ -60,12 +60,14 @@
   <div id='container'>
     <div id='title'>X월 X일 Event</div>
     <div id='list'>
-      <thead>
-        <!-- <th>번호</th>
+      <table>
+        <thead>
         <th>받는사람</th>
-        <th>금액</th> -->
+        <th>금액</th>
+        <th>메세지</th>
       </thead>
-      
+      <tbody id="listTable"></tbody>
+              </table>
     </div>
     <div style='
         display: flex; 
@@ -89,16 +91,30 @@
           userEmail: userEmail
         },
         success: function (data) {
+          $("#title").append(userEmail+ "님의 보낸내역");
           var amount=0;
           // console.log('data' ,data);
           // console.log(data.length);
           console.log(data);
           console.log(data[0].name);
-          $("#list").append('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>');
+          $("#list").append();
           for (var i = 0; i < data.length; i++) {
-              $("#list").append('<div class="input">' + data[i].name + "   " + data[i].money + '원 </div>'
+
+              $("#listTable").append(
+                "<tr><td>" +
               
+                  data[i].name +
+                "</td>" +
+                "<td>" +
+                  data[i].money +
+                  "</td>" +
+                "<td>" +
+
+                data[i].message +
+                "</td></tr>"  
               );
+            
+
               amount+=Number(data[i].money);
             }
             $("#total").append(amount + "   원");
@@ -106,7 +122,6 @@
       }
     });
   }
-    
    </script>
 </body>
 

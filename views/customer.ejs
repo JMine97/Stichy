@@ -68,7 +68,11 @@
     <script src="js/global.script.js"></script>
 
     <script>
-      const cameraClick = () => window.location.href='./camera'
+      const cameraClick = () =>{
+        localStorage.setItem('message', $('#messageContainer').val());
+        localStorage.setItem('price', $('#Money').val());
+        window.location.href='./camera'
+      }
       
 
       $("#kakaoPay").click(function () {

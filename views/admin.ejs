@@ -58,54 +58,75 @@
   <div id='container'>
     <div id='title'>X월 X일 Event</div>
     <div id='list'>
-      <input class='input'>
-      <input class='input'>
-      <input class='input'>
-      <input class='input'>
-      <input class='input'>
-      <input class='input'>
-      <input class='input'>
-      <input class='input'>
+      <thead>
+        <th>번호</th>
+        <th>보낸사람</th>
+        <th>금액</th>
+      </thead>
+      
     </div>
     <div style='
         display: flex; 
         justify-content: 
         flex-end; 
         margin-top: 10px;'>
-      
-      total: 225,000
-      
-    </div>
+        total :
+      </div>
+    
     <div class='button' id="createQrClick" style="float:left;">QR생성</div>
     <div class='button' onClick='messageClick()' style="float:right;" >메시지 확인</div>
 
   </div>
-  <!-- JQuery library file. requared all pages -->
   <script src="js/jquery-3.2.1.min.js"></script>
   <script>
-    const messageClick = () => window.location.href='./message'
-    const userEmail = localStorage.getItem("userEmail");
-    var fin_use_num;
-    // console.log("userEmail", userEmail);
-    fetchUserData();
-    function fetchUserData() {
+     const messageClick = () => window.location.href='./message'
+     const userEmail = localStorage.getItem("userEmail");
+     fetchMessageData();
+     function fetchMessageData() {
       $.ajax({
-        url: "/list",
+        url: "/admin",
         type: "POST",
         data: {
           userEmail: userEmail
         },
         success: function (data) {
           // console.log('data' ,data);
-          var fin_use_num = data.res_list[0].fintech_use_num;
-          console.log(fin_use_num);
-          $("#createQrClick").click(function() { window.location.href = "/qrcode?fin_use_num=" + fin_use_num; } );
-         
+          // console.log(data.length);
+          console.log(data);
+          console.log(data[0].name);
+          $("#list").append();
+          for (var i = 0; i < data.length; i++) {
+              $("#list").append('<div class="input">' + data[i].no + "  " + data[i].name + "   " + data[i].money + '</div>'
+                
+              );
+            }
+
+      }
+    });
+  }
+
+  
+     var fin_use_num;
+     // console.log("userEmail", userEmail);
+     fetchUserData();
+     function fetchUserData() {
+       $.ajax({
+         url: "/list",
+         type: "POST",
+         data: {
+           userEmail: userEmail
+         },
+         success: function (data) {
+           // console.log('data' ,data);
+           var fin_use_num = data.res_list[0].fintech_use_num;
+           console.log(fin_use_num);
+           $("#createQrClick").click(function() { window.location.href = "/qrcode?fin_use_num=" + fin_use_num; } );
           
-      }});
-    }
-   
-  </script>
+           
+       }});
+     }
+    
+   </script>
 </body>
 
 </html>

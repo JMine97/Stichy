@@ -15,7 +15,7 @@ app.set('view engine', 'ejs'); // 사용하는 뷰 엔진
 app.set('views', __dirname + '/views');//랜더링할 파일이 있는 디렉토리 
 
 
-app.use(express.static(__dirname + '/public')); //디자인 파일이 위치할 정적 요소들을 저장하는 디렉토리
+app.use(express.static(__dirname + '/public')); //디자인 파일이 위치할 정적 요소들을 저장하는 디렉토리
 
 //------------------카카오 API---------------------------
 var passport = require('passport');
@@ -45,9 +45,9 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost', //서버의 주소
   user     : 'root', // 접근 계정 이름
-  password : 'root', // 계정 비밀번호
+  password : 'stichy11', // 계정 비밀번호
 
-  database : 'fintech' // 데이터베이스 이름
+  database : 'project' // 데이터베이스 이름
 });
 connection.connect();
 
@@ -98,8 +98,8 @@ app.get('/message', function (req, res) {
   })  
 
 // ------------회원가입 --------------------------//
-var clientId = "Eor2pcYLGOvK2Z7RADIK4QEhUywbbhKl03euqhQX"
-var clientSecret = "jrwlWjNgDUvsp4ZJqwuOMJH1DbA5QJMDJfNipWEn"
+var clientId = "KSgNLjg3sEgZoN4JDhyPuZRapVlyrwpN5SaYjHeq"
+var clientSecret = "zKwqLnONTGAxUvuLwTJDKBVE5HsbuepJU6tQO1l0"
 
 
 app.post('/signup', function(req, res){
@@ -241,11 +241,26 @@ app.post('/list', function(req, res){
     })
   })
 
+//받은경조사비 내역 가져오기
+app.post('/admin', function(req, res){
+  var email = req.body.userEmail;
+  // console.log('server', email);
+  var userSelectSql = "SELECT * from user inner join list on user.email=list.receiver where email=?";
+  connection.query(userSelectSql, [email], function(err, results){
+    if(err){throw err}
+    else {
+      var admin = results;
+      // console.log(admin);
+    }
+    res.json(admin)
+  })
+})
+
 //메시지 가져오는 기능
 app.post('/message', function(req, res){
   var email = req.body.userEmail;
   // console.log('server', email);
-  var userSelectSql = "SELECT message FROM list WHERE host_name = ?";
+  var userSelectSql = "SELECT * from user inner join list on user.email=list.receiver where email=?";
   connection.query(userSelectSql, [email], function(err, results){
     if(err){throw err}
     else {

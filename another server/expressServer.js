@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const request = require('request');
-
+var store = require('store')
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: false })); 
@@ -22,25 +22,30 @@ app.get('/test',function(req,res){
         },
         form: {
           cid: "TC0ONETIME",
-          partner_order_id: "878978908099",
-          partner_user_id: "098986756465",
+          partner_order_id: "878978903011",
+          partner_user_id: "098986752411",
           item_name: "축의/부의금",
           quantity: "1",
           total_amount: money,
           tax_free_amount: "020",
-          approval_url: "https://localhost:3000/customer",
-          cancel_url: "https://localhost:3000",
-          fail_url: "https://localhost:3000"
+          approval_url: "http://localhost:3000/pay",
+          cancel_url: "http://localhost:3000",
+          fail_url: "http://localhost:3000"
         }
       };
       request(option, function (error, response, body) {
         var testRequestResult = JSON.parse(body);
         var tid =testRequestResult.tid;
+
+        store.set('tid',tid);
+    
+        console.log(tid)
         var redirect_pc_url=testRequestResult.next_redirect_pc_url;
         var resultObj = {
             tid : tid,
-            redirectUrl : redirect_pc_url
+            redirectUrl : redirect_pc_url,
         }
+        console.log(resultObj);
         res.json(resultObj);
 
       });

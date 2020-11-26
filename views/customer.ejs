@@ -76,25 +76,30 @@
       
 
       $("#kakaoPay").click(function () {
-      //var tmpWindow = window.open("about:blank");
-      var money=$("#Money").val();
-      
-      $.ajax({
-        url: "/test",
-        type: "POST",
-        data:{
-            money:money
-        },
-        success: function (data) {
-          console.log(data);
-          window.location.href = data.redirectUrl
-          
+        //var tmpWindow = window.open("about:blank");
+        var money=$("#Money").val();
+        
+        $.ajax({
+          url: "/test",
+          type: "POST",
+          data:{
+              money:money
           },
-        error:function(error){
-          console.log(error+"dddd")
-        }
+          success: function (data) {
+            
+            var tid=data.tid;
+            console.log(tid);
+          
+           //var tmpWindow=window.open('about:blank');
+           window.location=data.redirectUrl;
+          },
+          error:function(error){
+            console.log(error+"dddd")
+          }
+        });
+  
+        
       });
-    });
 
     </script>
   </body>

@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "passport": "^0.4.1",
+    "passport-kakao": "^1.0.0",
+    "store": "^2.0.12"
+  }
+}

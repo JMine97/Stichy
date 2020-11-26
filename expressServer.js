@@ -45,7 +45,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost', //서버의 주소
   user     : 'root', // 접근 계정 이름
-  password : 'root', // 계정 비밀번호
+  password : 'ehfwkd53', // 계정 비밀번호
 
   database : 'fintech' // 데이터베이스 이름
 });
@@ -358,6 +358,74 @@ app.get('/authResult', function(req, res){
       res.render("resultChild", { data: accessRequestResult });
     });
   })
+//----------------------- 카카오 ----------------------------------//
+
+app.post('/test',function(req,res){
+  var money=req.body.money
+  console.log(money);
+  
+  var option={
+    method:"GET",
+    url: "http://localhost:8000/test",
+    form:{
+      money:money,
+    }
+  };
+  request(option, function (error, response, body) {
+      var cid="TC0ONETIME";
+      var data=JSON.parse(body);
+      var tid=data.tid;
+      var redirectUrl=data.redirectUrl;
+      var partnerOrderId=data.partnerOrderId;
+      var partnerUserId=data.partnerUserId;
+
+      store.set('tid',tid);
+      
+      var resultObj={
+        tid:tid,
+        redirectUrl:redirectUrl,
+      }
+   
+      res.json(resultObj);  
+
+  });
+
+});
+
+app.get('/pay', function (req, res) {
+
+  var getToken = req.query.pg_token;
+
+  var getTid=store.get('tid');
+  console.log(getTid)
+  // var getToken = req.query.pg_token;
+  // var getTid=req.query.tid;
+
+  var option = {
+    method : "POST",
+    url : "https://kapi.kakao.com/v1/payment/approve",
+    headers : {
+      Authorization : "KakaoAK 3c350b16261bff69d388000ddd91417d"
+    },
+    //get 요청을 보낼때 데이터는 qs, post 에 form, json 입력가능
+    form : {
+      pg_token:getToken,
+      cid:"TC0ONETIME",
+      tid:getTid,
+      partner_order_id:"878978903011",
+      partner_user_id:"098986752411"
+    }
+  }
+  request(option, function (error, response, body) {
+    //json이 아니면 바꿔줘야 출력됨
+    var listResult = JSON.parse(body);
+    console.log(listResult);
+    //res.json(listResult)
+    res.render('pay')
+    
+  });
+
+});
 
 
 app.listen(3000, function(){

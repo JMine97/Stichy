@@ -268,7 +268,7 @@ app.post('/admin', function(req, res){
 app.post('/sendlist', function(req, res){
   var email = req.body.userEmail;
   // console.log('server', email);
-  var userSelectSql = "SELECT * from user inner join list on user.email=list.sender where email=?";
+  var userSelectSql = "SELECT * from user inner join list on user.email=list.receiver where sender=?";
   connection.query(userSelectSql, [email], function(err, results){
     if(err){throw err}
     else {

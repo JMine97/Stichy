@@ -81,6 +81,7 @@
     $("#total").append(total + "   원");
 
     const userEmail = localStorage.getItem("userEmail");
+    const userName = localStorage.getItem("userName");
     fetchMessageData();
     function fetchMessageData() {
       $.ajax({
@@ -94,7 +95,7 @@
           // console.log(data.length);
           //console.log(data);
           //console.log(data[0].message);
-          $("#title").append(userEmail+ "님의 받은내역");
+          $("#title").append(userName+ "님의 받은내역");
           $("#list").append();
           for (var i = 0; i < data.length; i++) {
 

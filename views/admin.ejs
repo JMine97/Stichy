@@ -19,6 +19,7 @@
       height: 500px;
       padding: 5px;
       justify-content: center;
+    
     }
 
     #list {
@@ -27,8 +28,26 @@
       flex-direction: column;
       border: 1px solid black;
       height: 350px;
+      padding : 5px;
       overflow-y:scroll;
+     
     }
+
+    /* #tableSort {
+      margin : auto;
+    } */
+
+    /* #listTable {
+      margin : auto;
+    } */
+
+    /* #tr {
+      margin : auto;
+    } */
+
+    /* #td{
+      margin : auto;
+    }  */
 
     .input {
       margin: 10px 30px;
@@ -42,6 +61,7 @@
       margin-top: 60px;
       margin-bottom: 20px;
     }
+
 
     .button {
       display: flex;
@@ -61,7 +81,7 @@
     <div id='title'></div>
     <div id='list'>
       <thead>
-        <table>
+        <table id="tableSort">
           <th>보낸사람</th>
           <th>금액</th>
         </thead>
@@ -101,12 +121,13 @@
           // console.log(data.length);
           //console.log(data);
           //console.log(data[0].name);
-          $("#title").append(userEmail+ "님의 받은내역");
+          const userName = localStorage.getItem("userName");
+          $("#title").append(userName+ "님의 받은내역");
           $("#list").append();
           for (var i = 0; i < data.length; i++) {
 
               $("#listTable").append(
-                "<tr><td>" +
+                "<tr id='tr'><td id='td'>" +
               
                   data[i].name +
                 "</td>" +

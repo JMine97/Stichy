@@ -82,6 +82,7 @@
   <script src="js/jquery-3.2.1.min.js"></script>
   <script>
      const userEmail = localStorage.getItem("userEmail");
+     const userName = localStorage.getItem("userName");
      fetchMessageData();
      function fetchMessageData() {
       $.ajax({
@@ -91,7 +92,7 @@
           userEmail: userEmail
         },
         success: function (data) {
-          $("#title").append(userEmail+ "님의 보낸내역");
+          $("#title").append(userName+ "님의 보낸내역");
           var amount=0;
           // console.log('data' ,data);
           // console.log(data.length);

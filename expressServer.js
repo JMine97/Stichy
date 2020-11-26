@@ -306,28 +306,30 @@ app.post('/record', function(req, res){
 
   var email = req.body.email;
   var finno = req.body.toFinUseNo;
-  var receiver;
+  
 
-  var userSelectSql = "select email from user where userfin = ?";
-  connection.query(userSelectSql, [finno], function(err, results){
+  var emailSelectSql = "SELECT email FROM user WHERE userfin = ?";
+  connection.query(emailSelectSql, [finno], function(err, results){
     if(err){throw err}
     else {
       console.log(finno);
       console.log(results);
-      receiver = results;
+
+      var receiver = results[0].email;
       // console.log(message);
+      var insertUserSql = "INSERT INTO list ( `money`, `message`, `receiver`,`sender`) VALUES ( ?, ?, ?, ?)"
+        connection.query(insertUserSql,[req.body.money, req.body.message, receiver, email], function (error, results, fields) {
+          if (error) throw error;
+          else {
+            res.json('insert success');
+          }
+        });
     }
     
   })
   
 
-  var insertUserSql = "INSERT INTO list ( `money`, `message`, `receiver`,`sender`) VALUES ( ?, ?, ?, ?)"
-  connection.query(insertUserSql,[req.body.money, req.body.message,receiver, email], function (error, results, fields) {
-    if (error) throw error;
-    else {
-      res.json('insert success');
-    }
-  });
+  
 })
 
 

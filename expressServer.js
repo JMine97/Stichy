@@ -245,12 +245,13 @@ app.post('/list', function(req, res){
 app.post('/admin', function(req, res){
   var email = req.body.userEmail;
   // console.log('server', email);
-  var userSelectSql = "SELECT * from user inner join list on user.email=list.receiver where email=?";
+  // var userSelectSql = "SELECT * from user inner join list on user.email=list.receiver where email=?";
+  var userSelectSql = "SELECT * from user inner join list on user.email=list.sender where receiver=?";
   connection.query(userSelectSql, [email], function(err, results){
     if(err){throw err}
     else {
       var admin = results;
-      // console.log(admin);
+      console.log(admin);
     }
     res.json(admin)
   })
@@ -260,7 +261,8 @@ app.post('/admin', function(req, res){
 app.post('/message', function(req, res){
   var email = req.body.userEmail;
   // console.log('server', email);
-  var userSelectSql = "SELECT * from user inner join list on user.email=list.receiver where email=?";
+
+  var userSelectSql = "SELECT name, message from user inner join list on user.email=list.sender where receiver=?";
   connection.query(userSelectSql, [email], function(err, results){
     if(err){throw err}
     else {

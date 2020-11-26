@@ -88,11 +88,11 @@
         success: function (data) {
           // console.log('data' ,data);
           // console.log(data.length);
-          console.log(data);
-          console.log(data[0].message);
-          $("#list").append();
+          // console.log(data);
+          // console.log(data[0].message);
+          $("#list").append('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>');
           for (var i = 0; i < data.length; i++) {
-              $("#list").append('<div class="input">' + data[i].message + '</div>'
+              $("#list").append('<div class="input">   ' + data[i].name + "  :  "+ data[i].message + '</div>'
                 
               );
             }

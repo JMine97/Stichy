@@ -27,10 +27,12 @@
       flex-direction: column;
       border: 1px solid black;
       height: 350px;
+      overflow-y:scroll;
     }
 
     .input {
       margin: 10px 30px;
+      border: 1px solid rgb(118, 118, 118);
     }
 
     #title {
@@ -59,7 +61,6 @@
     <div id='title'>X월 X일 Event</div>
     <div id='list'>
       <thead>
-        <th>번호</th>
         <th>보낸사람</th>
         <th>금액</th>
       </thead>
@@ -79,7 +80,8 @@
   </div>
   <script src="js/jquery-3.2.1.min.js"></script>
   <script>
-     const messageClick = () => window.location.href='./message'
+    // $("#messageClick").click(function() { window.location.href = "/message"; } );
+    const messageClick = () => window.location.href='/message';
      const userEmail = localStorage.getItem("userEmail");
      fetchMessageData();
      function fetchMessageData() {
@@ -92,11 +94,12 @@
         success: function (data) {
           // console.log('data' ,data);
           // console.log(data.length);
-          console.log(data);
-          console.log(data[0].name);
+          // console.log(data);
+          // console.log(data[0].name);
+          $("#list").append('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>');
           $("#list").append();
           for (var i = 0; i < data.length; i++) {
-              $("#list").append('<div class="input">' + data[i].no + "  " + data[i].name + "   " + data[i].money + '</div>'
+              $("#list").append('<div class="input">' + data[i].name+ "  :  "+  data[i].money + "원" + '</div>'
                 
               );
             }

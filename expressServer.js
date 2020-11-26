@@ -45,9 +45,9 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost', //서버의 주소
   user     : 'root', // 접근 계정 이름
-  password : 'stichy11', // 계정 비밀번호
+  password : 'root', // 계정 비밀번호
 
-  database : 'project' // 데이터베이스 이름
+  database : 'fintech' // 데이터베이스 이름
 });
 connection.connect();
 
@@ -104,8 +104,8 @@ app.get('/message', function (req, res) {
   })  
 
 // ------------회원가입 --------------------------//
-var clientId = "KSgNLjg3sEgZoN4JDhyPuZRapVlyrwpN5SaYjHeq"
-var clientSecret = "zKwqLnONTGAxUvuLwTJDKBVE5HsbuepJU6tQO1l0"
+var clientId = "o3fwum9rDR2LUKdyY46O4tfA7kaRdzjIdKuv7FNU"
+var clientSecret = "b4xVe7ARKAdL2CxDjVjNEbOMZY2cyCBcvNd4XssW"
 
 
 app.post('/signup', function(req, res){
@@ -240,7 +240,13 @@ app.post('/list', function(req, res){
         request(option, function (error, response, body) {
           //json이 아니면 바꿔줘야 출력됨
           var listResult = JSON.parse(body);
-          console.log(listResult);
+
+          var pinInsertSql = "update user set userfin = ? WHERE email = ?";
+          connection.query(pinInsertSql, [listResult.res_list[0].fintech_use_num, email], function(err, results){
+            if(err){throw err}
+            else {}
+          });
+          
           res.json(listResult)
         });
       }    
@@ -298,11 +304,25 @@ app.post('/record', function(req, res){
   
   var userName = store.get('user');
 
-  var email = req.body.userEmail;
+  var email = req.body.email;
+  var finno = req.body.toFinUseNo;
+  var receiver;
+
+  var userSelectSql = "select email from user where userfin = ?";
+  connection.query(userSelectSql, [finno], function(err, results){
+    if(err){throw err}
+    else {
+      console.log(finno);
+      console.log(results);
+      receiver = results;
+      // console.log(message);
+    }
+    
+  })
   
 
-  var insertUserSql = "INSERT INTO list (`visitor_name`, `money`, `message`, `toFinUseNo`) VALUES ( ?, ?, ?, ?)"
-  connection.query(insertUserSql,[userName, req.body.money, req.body.message, req.body.toFinUseNo], function (error, results, fields) {
+  var insertUserSql = "INSERT INTO list ( `money`, `message`, `receiver`,`sender`) VALUES ( ?, ?, ?, ?)"
+  connection.query(insertUserSql,[req.body.money, req.body.message,receiver, email], function (error, results, fields) {
     if (error) throw error;
     else {
       res.json('insert success');

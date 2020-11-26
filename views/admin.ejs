@@ -58,16 +58,14 @@
 
 <body>
   <div id='container'>
-    <div id='title'></div>
+    <div id='title'>X월 X일 Event</div>
     <div id='list'>
       <thead>
-        <table>
-          <th>보낸사람</th>
-          <th>금액</th>
-        </thead>
-        <tbody id="listTable"></tbody>
-                </table>
         
+        <th>보낸사람</th>
+        <th>금액</th>
+      </thead>
+      
     </div>
     <div style='
         display: flex; 
@@ -102,26 +100,16 @@
           // console.log(data.length);
           //console.log(data);
           //console.log(data[0].name);
-          $("#title").append(userEmail+ "님의 받은내역");
+          $("#list").append('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>');
           $("#list").append();
           for (var i = 0; i < data.length; i++) {
 
-              $("#listTable").append(
-                "<tr><td>" +
-              
-                  data[i].name +
-                "</td>" +
-                "<td>" +
-                  data[i].money + "원" +
-                
-                "</td></tr>"  
-              
-              //  '<div class="input">' + data[i].name+ "  :  "+  data[i].money + "원" + '</div>'
+              $("#list").append('<div class="input">' + data[i].name+ "  :  "+  data[i].money + "원" + '</div>'
 
 
               );
               amount+=Number(data[i].money);
-              // console.log(amount);S
+              // console.log(amount);
             }
             $("#total").append(amount + "   원");
             localStorage.setItem('total', amount);
@@ -129,7 +117,6 @@
       }
     });
   }
-  
   
   //fin_use_num 가져오기
 

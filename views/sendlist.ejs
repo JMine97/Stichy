@@ -27,10 +27,12 @@
       flex-direction: column;
       border: 1px solid black;
       height: 350px;
+      overflow-y:scroll;
     }
 
     .input {
       margin: 10px 30px;
+      border: 1px solid rgb(118, 118, 118);
     }
 
     #title {
@@ -59,9 +61,9 @@
     <div id='title'>X월 X일 Event</div>
     <div id='list'>
       <thead>
-        <th>번호</th>
+        <!-- <th>번호</th>
         <th>받는사람</th>
-        <th>금액</th>
+        <th>금액</th> -->
       </thead>
       
     </div>
@@ -69,17 +71,14 @@
         display: flex; 
         justify-content: 
         flex-end; 
-        margin-top: 10px;'>
+        margin-top: 10px;' id='total'>
         total :
       </div>
     
-    <div class='button' id="createQrClick" style="float:left;">QR생성</div>
-    <div class='button' onClick='messageClick()' style="float:right;" >메시지 확인</div>
 
   </div>
   <script src="js/jquery-3.2.1.min.js"></script>
   <script>
-     const messageClick = () => window.location.href='./message'
      const userEmail = localStorage.getItem("userEmail");
      fetchMessageData();
      function fetchMessageData() {
@@ -90,41 +89,23 @@
           userEmail: userEmail
         },
         success: function (data) {
+          var amount=0;
           // console.log('data' ,data);
           // console.log(data.length);
           console.log(data);
           console.log(data[0].name);
-          $("#list").append();
+          $("#list").append('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>');
           for (var i = 0; i < data.length; i++) {
-              $("#list").append('<div class="input">' + data[i].no + "  " + data[i].name + "   " + data[i].money + '</div>'
-                
+              $("#list").append('<div class="input">' + data[i].name + "   " + data[i].money + '원 </div>'
+              
               );
+              amount+=Number(data[i].money);
             }
-
+            $("#total").append(amount + "   원");
+            localStorage.setItem('total', amount);
       }
     });
   }
-
-  
-     var fin_use_num;
-     // console.log("userEmail", userEmail);
-     fetchUserData();
-     function fetchUserData() {
-       $.ajax({
-         url: "/list",
-         type: "POST",
-         data: {
-           userEmail: userEmail
-         },
-         success: function (data) {
-           // console.log('data' ,data);
-           var fin_use_num = data.res_list[0].fintech_use_num;
-           console.log(fin_use_num);
-           $("#createQrClick").click(function() { window.location.href = "/qrcode?fin_use_num=" + fin_use_num; } );
-          
-           
-       }});
-     }
     
    </script>
 </body>

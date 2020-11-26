@@ -134,6 +134,7 @@
            // console.log('data' ,data);
            var fin_use_num = data.res_list[0].fintech_use_num;
            console.log(fin_use_num);
+           localStorage.setItem('finusenum', fin_use_num);
            $("#createQrClick").click(function() { window.location.href = "/qrcode?fin_use_num=" + fin_use_num; } );
           
            

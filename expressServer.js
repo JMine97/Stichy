@@ -421,6 +421,7 @@ app.get('/pay', function (req, res) {
     var listResult = JSON.parse(body);
     console.log(listResult);
     //res.json(listResult)
+    
     res.render('pay')
     
   });

@@ -14,8 +14,25 @@
 
 <script>
     $("#loginBtn").click(function () {
-
-        window.location.href='./client';
+          $.ajax({
+            url: "/record",
+            type: "POST",
+            headers: {
+              ourtoken: jwtToken,
+            },
+            data: {
+              email : localStorage.getItem('userEmail'),
+              message : localStorage.getItem('message'),
+              money : localStorage.getItem('price'),
+              toFinUseNo : "000000000"
+            },
+            success: function (data) {
+              console.log(data); 
+              //alert("송금에 성공하셨습니다!");
+              window.location.href = "/client";
+            }
+      })
+        
 
     });
 </script>

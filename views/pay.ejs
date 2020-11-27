@@ -15,7 +15,8 @@
 <script>
   var jwtToken = sessionStorage.getItem("ourtoken");
     $("#loginBtn").click(function () {
-          $.ajax({
+      window.location.href = "/client";
+          /*$.ajax({
             url: "/record",
             type: "POST",
             headers: {
@@ -33,7 +34,7 @@
               window.location.href = "/client";
             }
       })
-        
+        */
 
     });
 </script>

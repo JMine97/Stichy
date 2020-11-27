@@ -13,6 +13,7 @@
 </script>
 
 <script>
+  var jwtToken = sessionStorage.getItem("ourtoken");
     $("#loginBtn").click(function () {
           $.ajax({
             url: "/record",
@@ -28,7 +29,7 @@
             },
             success: function (data) {
               console.log(data); 
-              //alert("송금에 성공하셨습니다!");
+              alert("송금에 성공하셨습니다!");
               window.location.href = "/client";
             }
       })

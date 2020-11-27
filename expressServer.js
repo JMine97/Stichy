@@ -45,7 +45,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost', //서버의 주소
   user     : 'root', // 접근 계정 이름
-  password : 'ehfwkd53', // 계정 비밀번호
+  password : 'root', // 계정 비밀번호
 
   database : 'fintech' // 데이터베이스 이름
 });
@@ -327,11 +327,8 @@ app.post('/record', function(req, res){
     }
     
   })
-  
-
-  
 })
-
+  
 
 //----------------------- 서비스 작동 ----------------------------------//
 

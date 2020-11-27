@@ -67,6 +67,8 @@
     $("#loginBtn").click(function(){
     var userEmail = $("#userEmail").val();
     var userPassword = $("#userPassword").val();
+    localStorage.setItem('userEmail', userEmail);
+    
       $.ajax({
               url: "/login",
               type: "POST",

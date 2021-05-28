@@ -23,14 +23,14 @@ https://user-images.githubusercontent.com/52027965/119981969-3876be00-bff9-11eb-
 
 <br><br>
 ## 3. 인터페이스 플로우차트
-<img src="https://user-images.githubusercontent.com/52027965/119983977-d7041e80-bffb-11eb-9672-e6a51f84cfde.png" width="60%" height="50%">
+<img src="https://user-images.githubusercontent.com/52027965/119983977-d7041e80-bffb-11eb-9672-e6a51f84cfde.png" width="70%" height="60%">
 <br><br>
 
 ## 4. DB 설계도
-<img src="https://user-images.githubusercontent.com/52027965/119984338-40842d00-bffc-11eb-8bd2-4cba77206e1a.png" width="40%" height="30%">
-<img src="https://user-images.githubusercontent.com/52027965/119984347-424df080-bffc-11eb-85c5-2cd5cfeb6b73.png" width="40%" height="30%">
-<img src="https://user-images.githubusercontent.com/52027965/119984348-42e68700-bffc-11eb-96f0-1d59e5847bd8.png" width="40%" height="30%">
-<img src="https://user-images.githubusercontent.com/52027965/119984350-437f1d80-bffc-11eb-9820-632a281b41f3.png" width="40%" height="30%">
+<img src="https://user-images.githubusercontent.com/52027965/119984338-40842d00-bffc-11eb-8bd2-4cba77206e1a.png" width="50%" height="40%">
+<img src="https://user-images.githubusercontent.com/52027965/119984347-424df080-bffc-11eb-85c5-2cd5cfeb6b73.png" width="50%" height="40%">
+<img src="https://user-images.githubusercontent.com/52027965/119984348-42e68700-bffc-11eb-96f0-1d59e5847bd8.png" width="50%" height="40%">
+<img src="https://user-images.githubusercontent.com/52027965/119984350-437f1d80-bffc-11eb-9820-632a281b41f3.png" width="50%" height="40%">
 <br><br>
 
 ## 4. 역할 분배
